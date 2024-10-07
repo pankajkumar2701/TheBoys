@@ -1,0 +1,15 @@
+grid:
+  cardTitle:
+    fields: []
+  cardDetail:
+    fields:
+      - dataType: string
+        label: Name
+        fieldName: Name
+        column: 12
+filter:
+  fields:
+    - fieldName: Name
+      label: Name
+      dataType: string
+      column: 12

@@ -1,0 +1,76 @@
+- name: Entity Management
+  icon: fas fa-cogs
+  items:
+    - name: Entity
+      description: Entity management and administration.
+      route: Entity
+      icon: fas fa-cog
+    - name: Tenant
+      description: Tenant management and administration.
+      route: Tenant
+      icon: fas fa-building
+
+- name: Patient Management
+  icon: fas fa-procedures
+  items:
+    - name: Patient
+      description: Patient management and administration.
+      route: Patient
+      icon: fas fa-procedures
+    - name: Gender
+      description: Gender management and administration.
+      route: Gender
+      icon: fas fa-venus-mars
+    - name: AgeUnit
+      description: AgeUnit management and administration.
+      route: AgeUnit
+      icon: fas fa-birthday-cake
+
+- name: Contact Management
+  icon: fas fa-address-card
+  items:
+    - name: Contact
+      description: Contact management and administration.
+      route: Contact
+      icon: fas fa-address-card
+    - name: Title
+      description: Title management and administration.
+      route: Title
+      icon: fas fa-id-badge
+    - name: Address
+      description: Address management and administration.
+      route: Address
+      icon: fas fa-map-marker-alt
+    - name: Country
+      description: Country management and administration.
+      route: Country
+      icon: fas fa-flag
+    - name: City
+      description: City management and administration.
+      route: City
+      icon: fas fa-city
+    - name: State
+      description: State management and administration.
+      route: State
+      icon: fas fa-map
+
+- name: Membership Management
+  icon: fas fa-user-friends
+  items:
+    - name: Membership
+      description: Membership management and administration.
+      route: Membership
+      icon: fas fa-id-card
+    - name: Role Entitlement
+      description: RoleEntitlement management and administration.
+      route: RoleEntitlement
+      icon: fas fa-user-plus
+
+- name: Location Management
+  icon: fas fa-map-marker
+  items:
+    - name: Location
+      description: Location management and administration.
+      route: Location
+      icon: fas fa-map-marker
+

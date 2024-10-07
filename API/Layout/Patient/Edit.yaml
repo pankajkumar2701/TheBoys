@@ -1,0 +1,112 @@
+- dataType: section
+  label: Personal detail
+  showTitle: true
+  column: 12
+  fields:
+    - fieldName: Title
+      label: Title
+      dataType: guid
+      entityName: Title
+      column: 3
+    - fieldName: FirstName
+      label: First name
+      dataType: string
+      required: true
+      column: 4
+    - fieldName: LastName
+      label: Last name
+      dataType: string
+      column: 5
+    - fieldName: Gender
+      label: Gender
+      dataType: guid
+      required: true
+      entityName: Gender
+      column: 4
+    - fieldName: Dob
+      label: Dob
+      dataType: datetime
+      required: true
+      column: 3
+    - fieldName: Email
+      label: Email
+      dataType: string
+      column: 4
+    - fieldName: BloodGroup
+      label: Blood group
+      dataType: string
+      column: 4
+    - fieldName: Age
+      label: Age
+      dataType: numeric
+      column: 4
+- dataType: section
+  label: Additionsl detail
+  showTitle: true
+  column: 12
+  fields:
+    - dataType: tab
+      column: 12
+      fields:
+        - label: GI
+          dataType: section
+          column: 12
+          showTitle: true
+          fields:
+            - fieldName: LastVisitDate
+              label: Last visit date
+              dataType: datetime
+              column: 12
+            - fieldName: IsVip
+              label: Is vip
+              dataType: boolean
+              column: 12
+        - label: Tab 2
+          dataType: section
+          column: 12
+          showTitle: true
+          fields:
+            - fieldName: DateOfDeath
+              label: Date of death
+              dataType: datetime
+              column: 12
+    - fieldName: PatientAddressId_Address.AddressLine1
+      label: Address line 1 (Patient address id)
+      dataType: string
+      column: 4
+    - fieldName: PatientAddressId_Address.AddressLine2
+      label: Address line 2 (Patient address id)
+      dataType: string
+      column: 4
+    - fieldName: PatientAddressId_Address.StateId
+      label: State id (Patient address id)
+      dataType: guid
+      entityName: State
+      column: 4
+    - fieldName: PatientAddressId_Address.PostalCode
+      label: Postal code (Patient address id)
+      dataType: string
+      column: 4
+    - fieldName: PatientAddressId_Address.CountryId
+      label: Country id (Patient address id)
+      dataType: guid
+      entityName: Country
+      column: 4
+    - dataType: groupfield
+      label: Group field
+      column: 4
+      fields:
+        - fieldName: Code
+          label: Code
+          dataType: string
+          column: 4
+        - fieldName: Mobile
+          label: Mobile
+          dataType: string
+          column: 8
+    - fieldName: Prescription
+      label: Prescription
+      dataType: file
+      removeUrl: BASEURL/api/file
+      saveUrl: BASEURL/api/file/Patient/field/Prescription
+      column: 12

@@ -1,0 +1,4 @@
+- dataType: section
+  column: 12
+  label: General
+  showTitle: true

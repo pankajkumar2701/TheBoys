@@ -1,0 +1,25 @@
+grid:
+  cardTitle:
+    fields:
+      - dataType: string
+        label: Name
+        fieldName: Name
+        column: 12
+  cardDetail:
+    fields:
+      - dataType: guid
+        label: StateId
+        fieldName: StateId
+        entityName: State
+        column: 12
+      - dataType: guid
+        label: CountryId
+        fieldName: CountryId
+        entityName: Country
+        column: 12
+filter:
+  fields:
+    - dataType: string
+      label: Name
+      fieldName: Name
+      column: 12
