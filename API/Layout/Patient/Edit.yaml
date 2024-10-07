@@ -45,31 +45,6 @@
   showTitle: true
   column: 12
   fields:
-    - dataType: tab
-      column: 12
-      fields:
-        - label: GI
-          dataType: section
-          column: 12
-          showTitle: true
-          fields:
-            - fieldName: LastVisitDate
-              label: Last visit date
-              dataType: datetime
-              column: 12
-            - fieldName: IsVip
-              label: Is vip
-              dataType: boolean
-              column: 12
-        - label: Tab 2
-          dataType: section
-          column: 12
-          showTitle: true
-          fields:
-            - fieldName: DateOfDeath
-              label: Date of death
-              dataType: datetime
-              column: 12
     - fieldName: PatientAddressId_Address.AddressLine1
       label: Address line 1 (Patient address id)
       dataType: string
@@ -104,9 +79,3 @@
           label: Mobile
           dataType: string
           column: 8
-    - fieldName: Prescription
-      label: Prescription
-      dataType: file
-      removeUrl: BASEURL/api/file
-      saveUrl: BASEURL/api/file/Patient/field/Prescription
-      column: 12
