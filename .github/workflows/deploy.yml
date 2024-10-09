@@ -33,6 +33,7 @@ jobs:
 
       # Run dotnet build and publish
       - name: Dotnet Build and Publish
+        id: build_step
         run: |
           dotnet restore
           dotnet build --configuration Release
@@ -42,6 +43,7 @@ jobs:
         run: |
           find Layout -type f -name "*.yaml" -exec rsync --relative {} ./myapp \;
           find Menu -type f -name "*.yaml" -exec rsync --relative {} ./myapp \;
+
       # Login to Azure
       - name: Login to Azure
         uses: azure/login@v1
@@ -58,14 +60,20 @@ jobs:
       - name: Logout from Azure
         run: |
           az logout
+
       - name: Notify Application - API Deployment
         if: ${{ success() }}
         run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"event": "api_deploy_completed", "status": "success", "userid": "f5e3f6e4-88ee-495c-a763-7528ae2a0617", "tenant": "4e0b99b6-1cab-4a8b-83cc-f3dc172ce012", "projectCode": "PR417956"}' https://testapicodezen.easycliniconline.com/api/web-hook/workflow
+          curl -X POST -H "Content-Type: application/json" -d '{"event": "api_deploy_completed", "status": "success", "userid": "f5e3f6e4-88ee-495c-a763-7528ae2a0617", "tenant": "4e0b99b6-1cab-4a8b-83cc-f3dc172ce012", "projectCode": "PR417956", "commitHash": "'"${{ github.sha }}"'"}' https://testapicodezen.easycliniconline.com/api/web-hook/workflow
       - name: Notify Application - API Deployment Failed
         if: ${{ failure() }}
         run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"event": "api_deploy_completed", "status": "failure", "userid": "f5e3f6e4-88ee-495c-a763-7528ae2a0617", "tenant": "4e0b99b6-1cab-4a8b-83cc-f3dc172ce012", "projectCode": "PR417956"}' https://testapicodezen.easycliniconline.com/api/web-hook/workflow
+          curl -X POST -H "Content-Type: application/json" -d '{"event": "api_deploy_completed", "status": "failure", "userid": "f5e3f6e4-88ee-495c-a763-7528ae2a0617", "tenant": "4e0b99b6-1cab-4a8b-83cc-f3dc172ce012", "projectCode": "PR417956", "commitHash": "'"${{ github.sha }}"'", "failure_reason": "'"${{ steps.build_step.outcome }}"'"}' https://testapicodezen.easycliniconline.com/api/web-hook/workflow
+
+      - name: Notify Application - API Deployment Cancelled
+        if: ${{ cancelled() }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{"event": "api_deploy_completed", "status": "cancelled", "userid": "f5e3f6e4-88ee-495c-a763-7528ae2a0617", "tenant": "4e0b99b6-1cab-4a8b-83cc-f3dc172ce012", "projectCode": "PR417956", "commitHash": "'"${{ github.sha }}"'"}' https://testapicodezen.easycliniconline.com/api/web-hook/workflow
 
   build-and-deploy-client-app:
     runs-on: ubuntu-latest
@@ -90,11 +98,13 @@ jobs:
 
       # Run npm build
       - name: NPM Build
+        id: build_step
         run: |
           npm install
           npm run build --if-present
           npm run lint
           cp "web.config" "dist/codezen-template/web.config"
+
       # Login to Azure
       - name: Login to Azure
         uses: azure/login@v1
@@ -111,11 +121,17 @@ jobs:
       - name: Logout from Azure
         run: |
           az logout
+
       - name: Notify Application - Client App Deployment
         if: ${{ success() }}
         run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"event": "ng_deploy_completed", "status": "success", "userid": "f5e3f6e4-88ee-495c-a763-7528ae2a0617", "tenant": "4e0b99b6-1cab-4a8b-83cc-f3dc172ce012", "projectCode": "PR417956"}' https://testapicodezen.easycliniconline.com/api/web-hook/workflow
+          curl -X POST -H "Content-Type: application/json" -d '{"event": "ng_deploy_completed", "status": "success", "userid": "f5e3f6e4-88ee-495c-a763-7528ae2a0617", "tenant": "4e0b99b6-1cab-4a8b-83cc-f3dc172ce012", "projectCode": "PR417956", "commitHash": "'"${{ github.sha }}"'"}' https://testapicodezen.easycliniconline.com/api/web-hook/workflow
       - name: Notify Application - Client App Deployment Failed
         if: ${{ failure() }}
         run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"event": "ng_deploy_completed", "status": "failure", "userid": "f5e3f6e4-88ee-495c-a763-7528ae2a0617", "tenant": "4e0b99b6-1cab-4a8b-83cc-f3dc172ce012", "projectCode": "PR417956"}' https://testapicodezen.easycliniconline.com/api/web-hook/workflow
+          curl -X POST -H "Content-Type: application/json" -d '{"event": "ng_deploy_completed", "status": "failure", "userid": "f5e3f6e4-88ee-495c-a763-7528ae2a0617", "tenant": "4e0b99b6-1cab-4a8b-83cc-f3dc172ce012", "projectCode": "PR417956", "commitHash": "'"${{ github.sha }}"'", "failure_reason": "'"${{ steps.build_step.outcome }}"'"}' https://testapicodezen.easycliniconline.com/api/web-hook/workflow
+
+      - name: Notify Application - Client App Deployment Cancelled
+        if: ${{ cancelled() }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{"event": "ng_deploy_completed", "status": "cancelled", "userid": "f5e3f6e4-88ee-495c-a763-7528ae2a0617", "tenant": "4e0b99b6-1cab-4a8b-83cc-f3dc172ce012", "projectCode": "PR417956", "commitHash": "'"${{ github.sha }}"'"}' https://testapicodezen.easycliniconline.com/api/web-hook/workflow
