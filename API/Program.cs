@@ -11,7 +11,7 @@ using TheBoys.Services;
 using TheBoys.Logger;
 using TheBoys.Middleware;
 using Newtonsoft.Json;
-//var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 // NLog: Setup NLog for Dependency injection
 builder.Logging.ClearProviders();
